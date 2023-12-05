@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Transaction Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #f4f4f4, #dddddd);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease;
+            max-width: 650px; /* Establecer un ancho máximo para el contenedor general */
+            margin: 0 auto; /* Centrar el contenedor en la página */
+            box-sizing: border-box; /* Incluir el padding y border en el tamaño total */
+        }
+
+        button {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input, button {
+            margin-bottom: 16px;
+            padding: 8px;
+        }
+
+        #transactionHistoryWrapper {
+            overflow: hidden;
+            max-height: 200px;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        #transactionHistoryContainer {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .transactionItem {
+        position: relative;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        opacity: 0; /* Inicialmente invisible */
+        transform: scale(0.8); /* Inicialmente un poco más pequeño */
+        transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .transactionItem::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 10px;
+            border-color: transparent transparent transparent black;
+            transform: translateY(-50%);
+        }
+        #transactionHistoryWrapper {
+            overflow-y: auto;  /* Hacer que aparezca la barra de desplazamiento vertical si es necesario */
+            max-height: 200px;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column; /* Cambiar a un diseño de columna para que la altura funcione correctamente */
+        }
+
+        #transactionHistoryContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Agregar un espacio entre los elementos */
+            flex-grow: 1; /* Hacer que el contenedor de historial ocupe todo el espacio disponible */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Blockchain Transaction Form</h2>
+        <form id="transactionForm">
+            <label for="sender">Nombre:</label>
+            <input type="text" id=sender name="sender" required>
+
+            <label for="receiver">Para:</label>
+            <input type="text" id=receiver name="receiver" required>
+
+            <label for="amount">Cantidad:</label>
+            <input type="number" id=amount name="amount" min="0" step="0.01" required>
+
+            <button type="button" onclick="Enviar(sender.value,receiver.value,amount.value)">Enviar a la Blockchain</button>
+        </form>
+        <form action="trasactionForm">
+            <div id="transactionResult">
+                <h3>Historial de Transacciones</h3>
+                <div id="transactionHistoryWrapper">
+                    <div id="transactionHistoryContainer"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+    <script>
+        var transactionHistory = [];
+        var currentColor = getRandomColor(); // Inicializar con un color aleatorio
+
+        function submitTransaction(sender,receiver,amount) {
+            // var sender = document.getElementById('sender').value;
+            // var receiver = document.getElementById('receiver').value;
+            // var amount = document.getElementById('amount').value;
+
+            if (sender === '' || receiver === '' || amount === '') {
+                alert('Por favor, complete todos los campos del formulario.');
+                return;
+            }
+
+            var transaction = {
+                sender: sender,
+                receiver: receiver,
+                amount: parseFloat(amount),
+                color: currentColor // Asignar el color actual a la transacción
+            };
+
+            simulateTransactionSubmission(transaction);
+        }
+
+        function simulateTransactionSubmission(transaction) {
+            setTimeout(function() {
+                transactionHistory.push(transaction);
+                updateTransactionHistoryContainer();
+                document.getElementById('transactionForm').reset();
+                currentColor = getRandomColor(); // Generar un nuevo color para la siguiente transacción
+            }, 1000);
+        }
+
+        function updateTransactionHistoryContainer() {
+            var historyContainer = document.getElementById('transactionHistoryContainer');
+            historyContainer.innerHTML = '';
+
+            transactionHistory.forEach(function(transaction, index) {
+                var transactionItem = document.createElement('div');
+                transactionItem.className = 'transactionItem';
+                transactionItem.innerHTML = '<p><strong>Sender:</strong> ' + transaction.sender + '</p>' +
+                                            '<p><strong>Receiver:</strong> ' + transaction.receiver + '</p>' +
+                                            '<p><strong>Amount:</strong> ' + transaction.amount + '</p>';
+                
+                // Aplicar el color de la transacción actual al bloque
+                transactionItem.style.backgroundColor = transaction.color;
+
+                // Agregar flecha solo si no es el primer bloque
+                if (index > 0) {
+                    transactionItem.style.marginLeft = '20px';
+                }
+
+                // Aplicar animación a nuevos bloques
+                transactionItem.style.opacity = '1';
+                transactionItem.style.transform = 'scale(1)';
+
+                historyContainer.appendChild(transactionItem);
+            });
+        }
+
+
+        function getRandomColor() {
+            var colors = ['#3498db', '#f39c12', '#9b59b6'];
+            var randomIndex = Math.floor(Math.random() * colors.length);
+            return colors[randomIndex];
+        }
+    </script>
+    <script>
+        function Enviar(sender,receiver,amount){
+            fetch( 'http://localhost:8080/?mensaje=' + sender +"|"+ receiver +"|"+ amount ) // URL reconocida por la aplicación java principal
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('La solicitud no pudo ser completada correctamente.');
+                }
+                return response.text();  // debe ser "text" en minúsculas
+                //return response.json(); // Si se espera una respuesta JSON
+            })
+            .then(data => {
+                // resultado.innerHTML = "<div>Hola " + sender + ", el servidor respondio:" + data+"</div>"; 
+                if(data.startsWith("Bloque Incorrecto")){
+                    console.log(data)
+                    alert("Su bloque tuvo inconsistencias por favor vuelva a intentarlo")
+                }else{
+                    console.log(data);
+                    submitTransaction(sender,receiver,amount);
+                }                
+               
+            })
+            .catch(error => {
+                alert('Hubo un error al realizar la solicitud:');  // Muestra error en pantalla
+                // console.error('Hubo un error al realizar la solicitud:', error);  // Manda error a la consola del navegador
+            });
+        
+        }
+    </script> 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
