@@ -6,7 +6,7 @@
 ## ¿Que es la blockchain?  
 Esta consiste en bloques de transacciones registrados por millones de usuarios, trabaja como un tipo de lista ligada pues tenemos dos hash que actúan como punteros uno que es el hash del bloque de transacción actual y otro que apunta al bloque anterior estos hash se obtienen resolviendo problemas complicados, pero lo importante son las validaciones de estos bloques, estas son realizadas por millones de usuarios para asegurar que el bloque generado es correcto es decir que los bloques de hash coinciden.
 
-![Alt text](Exponencial.png)
+![!\[Alt text\](Exponencial.png)](images/Exponencial.png)
 
 Para efectos prácticos se decidió utilizar el tipo de hasheo con la normativa SHA-256 siendo eficaz rápida y fácil de implantar en java puesto que ya viene de forma nativa en el lenguaje 
 
@@ -18,7 +18,7 @@ Es aquí en donde yo decidí actuar aplicando los temas vistos en clase como el 
 
 Lo que se decidió paralelizar fue la validación de los bloques, los hilos del procesador actuaran como otros usuarios para validar que el bloque con sus hash respectivos son correctos 
 
-![Alt text](<Exponencial - Page 1.png>)
+![!\[Alt text\](<Exponencial - Page 1.png>)](<images/Exponencial - Page 1.png>)
 
 Utilizando java para hacer este proceso, se generan una función validar para asegurar que el bloque generado es correcto, aquí una porción del código
 
