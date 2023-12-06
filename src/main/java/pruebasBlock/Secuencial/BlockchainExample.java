@@ -59,7 +59,7 @@ class BlockchainExample {
                 // Eliminar el bloque si la validación falla
                 blockchain.remove(blockIndex);
                 System.out.println("Removing block #" + blockIndex);    
-                }    
+            }    
         }catch (Exception e) {
                 // System.out.println("Bloque ya eliminado:");
         }

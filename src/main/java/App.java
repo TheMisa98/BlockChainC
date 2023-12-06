@@ -15,7 +15,9 @@ public class App {
     
 
     public static void main(final String[] args) {
+        
         BlockChain chain = new BlockChain();
+
         Undertow server = Undertow.builder().addHttpListener(8080, "localhost")
                 .setHandler(new HttpHandler() {
                     @Override
@@ -36,12 +38,17 @@ public class App {
 
                             //Creamos un objeto de transacción y la añadimos a la blockcchian
                             List<Transaction> trasactions = new ArrayList<>();
+
                             trasactions.add(new Transaction(Sender, Receiver, (double) Integer.parseInt(Amount)));
+                            
                             chain.addBlock(trasactions);
+
                             Block lastBlocBefore = chain.getBlockchain().get(chain.getBlockchain().size()-1);
+
                             //Validamos que sea correcto de forma concurrente y guardamos si lo fue o no
                             Validate validar = new Validate();
                             validateSec validateSec = new validateSec();
+                            
                             // validación de tiempos de respues
                             long timeConcurrentInit = System.currentTimeMillis(); 
                             validar.validateConcurrentlyAndRemoveInvalidBlocks(chain.getBlockchain(), chain);
