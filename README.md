@@ -284,18 +284,17 @@ En el escenario presente, se constata la imposibilidad de añadir el bloque, sie
     Bloque Incorrecto Tiempo concurrente: 1 Tiempo secuencial: 3
 ```
 # Instalación
-Por último vemos la instalación del proycto:
+En último lugar, procedemos a abordar la instalación del proyecto:
 
-1. Descargamos el repositorio o clonamos mediante git en su consola y directorio de preferencia
-2. Es indispensable que ya se tenga instalado **maven** en elquipo
-3. Una vez clonado o descargado el repositorio abre su consola de preferencia se posiciona en el directorio donde se tenga el proyecto y ejecuta
+1. Descargue el repositorio o realice una clonación a través de Git en su consola, seleccionando el directorio de su preferencia.
+2. Es requisito indispensable contar con la instalación previa de **Maven** en su equipo.
+3. Una vez que haya clonado o descargado el repositorio, abra su consola de preferencia y sitúese en el directorio que contiene el proyecto. A continuación, ejecute el siguiente comando para compilar y construir el proyecto:
     ```bash
     mvn
     ```
-    Esto para compilar y construir el proyecto
-4. Después
+4. Posteriormente, ejecute el siguiente comando para ejecutar el proyecto:
     ```bash
-    mvn exec: java
+    mvn exec:java
     ```
 En caso de no haber experimentado inconvenientes con los códigos previos, ahora tiene la capacidad de acceder al proyecto mediante el navegador de su elección, simplemente dirigiéndose a la siguiente ruta: http://localhost:8080.
 
