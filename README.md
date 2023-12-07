@@ -296,6 +296,8 @@ En último lugar, procedemos a abordar la instalación del proyecto:
     ```bash
     mvn exec:java
     ```
+Indispensable tner acceso a internet para el uso de imagenes.
+
 En caso de no haber experimentado inconvenientes con los códigos previos, ahora tiene la capacidad de acceder al proyecto mediante el navegador de su elección, simplemente dirigiéndose a la siguiente ruta: http://localhost:8080.
 
 # Fin
