@@ -1,26 +1,39 @@
+
 # Blockchain de utilizando el paradigma paralelo
 ## Universidad Nacional Autónoma de México
 
-### Desarrollado por **Misael Ramos Navarrete** estudiante de la licenciatura en Ciencia de Datos  
+### Desarrollado por **Misael Ramos Navarrete** estudiante de la licenciatura en Ciencia de Datos 
+
+1. [¿Que es la blockchain?](#¿que-es-la-blockchain)
+2. [Aplicación](#aplicación)
+   1. [Paralelización de hilos](#paralelización-de-hilos)
+   2. [Cliente Servidor](#cliente-servidor)
+   3. [Paso de mensajes](#paso-de-mensajes)
+3. [Función](#función)
+   1. [App](#app)
+   2. [Tiempo](#tiempo)
+   3. [Bloques erroneos](#bloques-erroneos)
+4. [Instalación](#instalación)
+5. [Fin](#fin) 
 
 ## ¿Que es la blockchain?  
-Esta consiste en bloques de transacciones registrados por millones de usuarios, trabaja como un tipo de lista ligada pues tenemos dos hash que actúan como punteros uno que es el hash del bloque de transacción actual y otro que apunta al bloque anterior estos hash se obtienen resolviendo problemas complicados, pero lo importante son las validaciones de estos bloques, estas son realizadas por millones de usuarios para asegurar que el bloque generado es correcto es decir que los bloques de hash coinciden.
+Esta estructura opera mediante bloques de transacciones registradas por millones de usuarios, funcionando de manera similar a una lista ligada. En este contexto, dos hashes actúan como punteros: uno corresponde al hash del bloque de transacción actual y otro señala al bloque anterior. La obtención de estos hashes implica la resolución de problemas complejos. Sin embargo, el aspecto crucial radica en las validaciones de estos bloques, las cuales son llevadas a cabo por millones de usuarios para garantizar la corrección del bloque generado, es decir, que los hashes de los bloques coincidan.
 
 ![!\[Alt text\](Exponencial.png)](images/Exponencial.png)
 
-Para efectos prácticos se decidió utilizar el tipo de hasheo con la normativa SHA-256 siendo eficaz rápida y fácil de implantar en java puesto que ya viene de forma nativa en el lenguaje 
+Para propósitos prácticos, se tomó la decisión de emplear el algoritmo de hash SHA-256, dado su rendimiento eficiente y su facilidad de implementación en Java, ya que se encuentra integrado de forma nativa en el lenguaje.
 
 ## Aplicación
 
-Es aquí en donde yo decidí actuar aplicando los temas vistos en clase como el paso de mensajes, cliente servidor, y paralelización de hilos
+En este punto, opté por intervenir aplicando los conceptos abordados en clase, tales como el paso de mensajes, la arquitectura cliente-servidor, y la paralelización de hilos.
 
 ### Paralelización de Hilos
 
-Lo que se decidió paralelizar fue la validación de los bloques, los hilos del procesador actuaran como otros usuarios para validar que el bloque con sus hash respectivos son correctos 
+La decisión adoptada consistió en paralelizar la validación de los bloques. Los hilos del procesador desempeñarán el papel de otros usuarios, participando en la validación para confirmar que el bloque y sus respectivos hash son correctos.
 
 ![!\[Alt text\](<Exponencial - Page 1.png>)](<images/Exponencial - Page 1.png>)
 
-Utilizando java para hacer este proceso, se generan una función validar para asegurar que el bloque generado es correcto, aquí una porción del código
+Haciendo uso de Java para llevar a cabo este procedimiento, se implementa una función de validación para garantizar la integridad del bloque generado. A continuación, se presenta una sección del código relevante:
 
 ``` java
     private ExecutorService executorService;
@@ -45,7 +58,7 @@ Utilizando java para hacer este proceso, se generan una función validar para as
     }
 ```
 
-Esta es la función primordial para hacer la validación de los bloques como podemos notar no es mas complicada que crear varios hilos con una sola misión la de validar los bloques pero esto ¿Cómo funciona?:
+Esta función desempeña un papel fundamental en la validación de los bloques. Como se puede observar, su complejidad no excede la tarea de crear varios hilos, cada uno con la única misión de validar bloques. No obstante, ¿cómo opera este proceso?
 
 ``` java 
      public void validateAndRemoveBlock(int blockIndex) {
@@ -65,17 +78,17 @@ Esta es la función primordial para hacer la validación de los bloques como pod
         }
     }
 ```
-Una vez creado el bloque este se obtiene y se valida que su hash del anterior bloque junto con el bloque actual sean iguales, pero al utilizar la SHA-256 esto siempre será correcto pues esta no tiene un indice de error real, por tanto agregué una probabilidad de fallar del $1$%, en caso de fallar este se decide eliminarlo de la cadena, así conseguimos una una simulación de blockchain.
+Una vez que se ha creado el bloque, se obtiene y se verifica que su hash y el del bloque anterior sean iguales. Sin embargo, dado que se utiliza SHA-256, que no tiene un índice de error real, se ha incorporado una probabilidad de fallo del 1%. En caso de que la verificación falle, se decide eliminar el bloque de la cadena, logrando así simular una blockchain.
 
-Con esto aplicamos la primera parte que fue la paralelización de hilos.
+Con esta implementación, se ha llevado a cabo la primera parte del proyecto, que consistió en la paralelización de hilos.
 
 ### Cliente Servidor
 
-Una vez creado y desarrollado la sección paralela toca creer un cliente servidor el cual funcionará en una página html con java script, utilizando el servidor de **UNDERTOW** y **MAVEN** como gestor de paquetes java, más adelante veremos la instalación de este proyecto, por el momento seguiremos con su explicación del proyecto.
+Una vez creada y desarrollada la sección paralela, se procede a crear un servidor cliente que operará en una página HTML con JavaScript, utilizando el servidor **UNDERTOW** y **MAVEN** como gestor de paquetes Java. Más adelante se abordará la instalación del proyecto, por el momento continuaremos con la explicación del mismo.
 
-Para este servidor la única interacción creada entre el servidor y el cliente es un paso de mensaje con las transacciones generadas en la página, en java se recibe esta información se crea el bloque y se valida si fue correcto.
+En este servidor, la única interacción establecida entre el servidor y el cliente consiste en un intercambio de mensajes con las transacciones generadas en la página. En Java, se recibe esta información, se crea el bloque y se verifica su validez.
 
-Veamos una sección del código.
+A continuación, se muestra una sección del código correspondiente a esta implementación.
 
 ```java 
 // Obtenemos las partes del a guardar en la block chain
@@ -85,7 +98,7 @@ Veamos una sección del código.
     String Amount = Parts[2];
                             
 ```
-En esta sección se separa el mensaje de que nos manda la página en sus partes de la transacción como son quién lo envia, quién lo recibe y la cantidad.
+En esta sección, el mensaje enviado por la página se descompone en sus elementos constituyentes, tales como el remitente, el destinatario y la cantidad de la transacción.
 
 ```java
     //Creamos un objeto de transacción y la añadimos a la blockcchian
@@ -100,7 +113,7 @@ En esta sección se separa el mensaje de que nos manda la página en sus partes 
 
 ```
 
-En esta sección creamos el bloque nuevo de transacción y lo enviamos a la blockchain.
+En esta sección, se lleva a cabo la creación de un nuevo bloque de transacción y su posterior envío a la cadena de bloques.
 
 ```java
     //Validamos que sea correcto de forma concurrente y guardamos si lo fue o no
@@ -116,11 +129,11 @@ En esta sección creamos el bloque nuevo de transacción y lo enviamos a la bloc
     long timeSecuenEnd = System.currentTimeMillis()-timeSecuenInit;
 ```
 
-Por ultimo instanciamos los validadores concurrentes y secuenciales para medir tiempos de espera.
+Finalmente, se procede a instanciar los validadores concurrentes y secuenciales con el propósito de medir los tiempos de espera asociados.
 
 ### Paso de mensajes
 
-Con esta información y ya validado el bloque podemos mandar la información a la página diciendo si fue correcto el bloque o por si de lo contrario no se agrego a la cadena.
+Con la información proporcionada y después de validar el bloque, se procede a enviar la información a la página, indicando si la operación del bloque fue exitosa o, en su defecto, si no fue agregado a la cadena.
 
 ```java
     if(lastBlocBefore == lastBloc){
@@ -135,11 +148,11 @@ Con esta información y ya validado el bloque podemos mandar la información a l
         exchange.getResponseSender().send("Bloque Incorrecto"+" Tiempo concurrente: "+(timeConcurrentEnd) +" Tiempo secuencial: " +String.valueOf(timeSecuenEnd));
     }
 ```
-Con este if verificamos si el bloque fue eliminado o se agrego correctamente, junto con una cadena formateada con la información del bloque para mostrarlo en consola del navegador, al igual que los tiempos de ejecución.
+Con esta estructura condicional, se verifica si la operación de eliminar o agregar el bloque se llevó a cabo con éxito. Además, se genera una cadena formateada con la información del bloque para su visualización en la consola del navegador, incluyendo los tiempos de ejecución.
 
-Ahora veamos el js de la página para ver como se mandan los mensajes al servidor. 
+Ahora procedamos a examinar el código JavaScript de la página para entender cómo se envían los mensajes al servidor.
 
-```js
+```javascript
 function Enviar(sender,receiver,amount){
     fetch( 'http://localhost:8080/?mensaje=' + sender +"|"+ receiver +"|"+ amount ) // URL reconocida por la aplicación java principal
     .then(response => {
@@ -166,6 +179,125 @@ function Enviar(sender,receiver,amount){
 
 }
 ```
-En la siguiente función se manda los dantos separdos por '|' al servidor, y este retorna un mensaje empezando por "Bloque incorrecto" lo cual sólo avisa al usuario de que su bloque tuvo incosistencias, y en consola se muestran los datos.
+En la función subsiguiente, se envían los datos separados por '|' al servidor. En el caso en que este retorne un mensaje que comienza con "Bloque incorrecto", se notifica al usuario sobre las inconsistencias detectadas en su bloque, mientras que los detalles se registran en la consola.
 
-Caso contrario se manda la data formateada a la consola del navegador y se llama la función de **"submitTransaction"** para actualizaar la página con el nuevo bloque creado.
+En el escenario opuesto, donde la información formateada se envía a la consola del navegador, se invoca la función **"submitTransaction"** para actualizar la página con el nuevo bloque creado.
+
+# Función
+## App
+El cliente luce de la siguiente manera 
+
+<p align="center">
+  <img src="./images/Screenshot_20231206_181001.png">
+</p>
+
+Se trata de un formulario que incluye el nombre del remitente, del destinatario y la cantidad a enviar.
+
+Al generar una transacción y proceder al envío, obtenemos el siguiente resultado.
+
+<p align="center">
+    <img src="./images/Screenshot_20231206_181512.png">
+</p>
+
+Al percatarnos de la adición de un bloque de color que exhibe información adicional, al dirigirnos a la consola del navegador, nos encontramos con los siguientes datos registrados.
+
+```bash
+LastBlock => 
+Sender: Misa 
+Receiver Dani 
+Amout: 250.0 
+Previous Hash: 9ff9b10bae1b94cf0e8d82c23151d92bb7e5ce3a4f84143d28b0ab14b3391 
+Hash: 9b168154d82b1c9f889e5f42c6d6cf990e23213d18757d3c10851e793b31
+
+Size Blockchain: 1
+
+Tiempo concurrente: 2 Tiempo secuencial: 3
+```
+## Tiempo
+Observamos que se nos brinda información detallada sobre la transacción, incluyendo los hashes generados para el bloque, el tamaño de la cadena y los tiempos de ejecución asociados con ambas validaciones.
+
+```bash
+LastBlock => 
+Sender: Misa 
+Receiver Dani 
+Amout: 250.0 
+Previous Hash: 9ff9b10bae1b94cf0e8d82c23151d92bb7e5ce3a4f84143d28b0ab14b3391 
+Hash: 9b168154d82b1c9f889e5f42c6d6cf990e23213d18757d3c10851e793b31
+
+Size Blockchain: 2
+
+Tiempo concurrente: 2 Tiempo secuencial: 3
+(index):221 LastBlock => 
+Sender: daniel 
+Receiver daniel 
+Amout: 123.0 
+Previous Hash: 9b168154d82b1c9f889e5f42c6d6cf990e23213d18757d3c10851e793b31 
+Hash: 49a46d52215d67be53d84d915345768d71dc54bdbc28bbcff16a78a9f87c38
+
+Size Blockchain: 3 
+
+Tiempo concurrente: 1 Tiempo secuencial: 3
+(index):221 LastBlock => 
+Sender: saul 
+Receiver saul 
+Amout: 1223.0 
+Previous Hash: 49a46d52215d67be53d84d915345768d71dc54bdbc28bbcff16a78a9f87c38 
+Hash: b064d58b20d23d779680fde97aee99638d588588a1ce8dea9e9b37818aefe2
+
+Size Blockchain: 4
+
+Tiempo concurrente: 1 Tiempo secuencial: 3
+(index):221 LastBlock => 
+Sender: yael 
+Receiver yael 
+Amout: 12344.0 
+Previous Hash: b064d58b20d23d779680fde97aee99638d588588a1ce8dea9e9b37818aefe2 
+Hash: 8e8c4f1b9f26ef414cafb5ea9be61c4f780a5fe9f1bbbe97fde0a6724b50e0
+
+Size Blockchain: 5
+
+Tiempo concurrente: 1 Tiempo secuencial: 4
+(index):221 LastBlock => 
+Sender: prueba 
+Receiver prueba 
+Amout: 523.0 
+Previous Hash: 8e8c4f1b9f26ef414cafb5ea9be61c4f780a5fe9f1bbbe97fde0a6724b50e0 
+Hash: 9d91cb309e9c588c8122f247fcb2fdc9d53345722c69fa65a496ce1332d589
+
+Size Blockchain: 6
+
+Tiempo concurrente: 2 Tiempo secuencial: 3
+
+```
+Es importante destacar que los tiempos de ejecución están expresados en milisegundos. Se evidencia una notable diferencia entre ambos modelos, con una mejora del 33.3%, no obstante, tras realizar múltiples pruebas, se constata que la mejora es del 66.6% en términos de la mediana, proporcionando así una perspectiva más precisa de la eficiencia del sistema.
+
+## Bloques erroneos
+Examinemos, asimismo, el escenario en el cual la adición de un bloque resulta infructuosa y, como consecuencia, se procede a su eliminación.
+
+<p align="center">
+    <img src="./images/Screenshot_20231206_182733.png">
+</p>
+
+En el escenario presente, se constata la imposibilidad de añadir el bloque, siendo notificado de tal incidencia directamente en la página. La consola, por su parte, arroja el siguiente resultado como evidencia de dicho contratiempo.
+
+```bash
+    Bloque Incorrecto Tiempo concurrente: 1 Tiempo secuencial: 3
+```
+# Instalación
+Por último vemos la instalación del proycto:
+
+1. Descargamos el repositorio o clonamos mediante git en su consola y directorio de preferencia
+2. Es indispensable que ya se tenga instalado **maven** en elquipo
+3. Una vez clonado o descargado el repositorio abre su consola de preferencia se posiciona en el directorio donde se tenga el proyecto y ejecuta
+    ```bash
+    mvn
+    ```
+    Esto para compilar y construir el proyecto
+4. Después
+    ```bash
+    mvn exec: java
+    ```
+En caso de no haber experimentado inconvenientes con los códigos previos, ahora tiene la capacidad de acceder al proyecto mediante el navegador de su elección, simplemente dirigiéndose a la siguiente ruta: http://localhost:8080.
+
+# Fin
+Podemos inferir, por consiguiente, que la implementación de la programación paralela ha contribuido de manera significativa a la reducción de los tiempos de espera, evidenciando mejoras substanciales en la ejecución del programa relacionado con la tecnología blockchain. En este contexto, se observa la aplicación efectiva de varios conceptos abordados en el ámbito académico, tales como el modelo cliente-servidor, la transferencia de mensajes, y la paralelización de hilos.
