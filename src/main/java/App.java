@@ -1,4 +1,3 @@
-
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
@@ -11,12 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    private static final String HTML_FILE_PATH = "html/prueba.html"; 
     
 
     public static void main(final String[] args) {
         
         BlockChain chain = new BlockChain();
+        
 
         Undertow server = Undertow.builder().addHttpListener(8080, "localhost")
                 .setHandler(new HttpHandler() {
@@ -79,7 +78,7 @@ public class App {
                             
                         } else {
                             // Serve the HTML page
-                            String htmlContent = readHtmlFile();
+                            String htmlContent = readHtmlFile("./html/prueba.html");
                             exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/html");
                             exchange.getResponseSender().send(htmlContent);
                         }
@@ -88,8 +87,8 @@ public class App {
         server.start();
     }
 
-    private static String readHtmlFile() {
-        try (InputStream inputStream = App.class.getClassLoader().getResourceAsStream(HTML_FILE_PATH)) {
+    private static String readHtmlFile(String filePath) {
+        try (InputStream inputStream = App.class.getClassLoader().getResourceAsStream(filePath)) {
             if (inputStream != null) {
                 try (Scanner scanner = new Scanner(inputStream, "UTF-8").useDelimiter("\\A")) {
                     return scanner.hasNext() ? scanner.next() : "";
@@ -98,9 +97,9 @@ public class App {
                 return "HTML file not found";
             }
         } catch (IOException e) {
-            // Handle the IOException or log the exception
+            // Manejar la IOException o registrar la excepción
             e.printStackTrace();
-            return "Error leyendo archivo HTML principal: debe estar en src\\resources\\html";
+            return "Error leyendo archivo HTML: debe estar en src\\resources";
         }
     }
 }

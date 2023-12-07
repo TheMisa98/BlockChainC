@@ -1,0 +1,101 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f4f4f4, #dddddd);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+    max-width: 650px; /* Establecer un ancho máximo para el contenedor general */
+    margin: 0 auto; /* Centrar el contenedor en la página */
+    box-sizing: border-box; /* Incluir el padding y border en el tamaño total */
+}
+
+button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input, button {
+    margin-bottom: 16px;
+    padding: 8px;
+}
+
+#transactionHistoryWrapper {
+    overflow: hidden;
+    max-height: 200px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+#transactionHistoryContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.transactionItem {
+position: relative;
+margin-right: 10px;
+margin-bottom: 10px;
+padding: 10px;
+border-radius: 4px;
+opacity: 0; /* Inicialmente invisible */
+transform: scale(0.8); /* Inicialmente un poco más pequeño */
+transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0;
+transform: scale(0.8);
+transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.transactionItem::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 10px;
+    border-color: transparent transparent transparent black;
+    transform: translateY(-50%);
+}
+#transactionHistoryWrapper {
+    overflow-y: auto;  /* Hacer que aparezca la barra de desplazamiento vertical si es necesario */
+    max-height: 200px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column; /* Cambiar a un diseño de columna para que la altura funcione correctamente */
+}
+
+#transactionHistoryContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Agregar un espacio entre los elementos */
+    flex-grow: 1; /* Hacer que el contenedor de historial ocupe todo el espacio disponible */
+}

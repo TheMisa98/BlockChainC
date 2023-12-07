@@ -1,0 +1,12 @@
+pruebasBlock/Concurrente/Validate.class
+pruebasBlock/Concurrente/validateSec.class
+pruebasBlock/Concurrente/Transaction.class
+pruebasBlock/Concurrente/BlockChain.class
+pruebasBlock/Concurrente/Block.class
+pruebasBlock/Secuencial/BlockchainExample.class
+App.class
+pruebasBlock/Secuencial/Block.class
+pruebasBlock/Secuencial/pruebas.class
+pruebasBlock/Concurrente/pruebas.class
+App$1.class
+pruebasBlock/Secuencial/Transaction.class

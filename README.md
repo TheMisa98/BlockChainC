@@ -1,5 +1,5 @@
 
-# Blockchain de utilizando el paradigma paralelo
+# Blockchain utilizando el paradigma paralelo
 ## Universidad Nacional Autónoma de México
 
 ### Desarrollado por **Misael Ramos Navarrete** estudiante de la licenciatura en Ciencia de Datos 
